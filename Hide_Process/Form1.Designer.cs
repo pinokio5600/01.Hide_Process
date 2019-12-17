@@ -28,33 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.processListView = new System.Windows.Forms.ListView();
+            this.hideBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listView1
+            // processListView
             // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(127, 47);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(370, 334);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.processListView.HideSelection = false;
+            this.processListView.Location = new System.Drawing.Point(127, 47);
+            this.processListView.Name = "processListView";
+            this.processListView.Size = new System.Drawing.Size(370, 334);
+            this.processListView.TabIndex = 0;
+            this.processListView.UseCompatibleStateImageBehavior = false;
+    
+            // 
+            // hideBtn
+            // 
+            this.hideBtn.Location = new System.Drawing.Point(564, 47);
+            this.hideBtn.Name = "hideBtn";
+            this.hideBtn.Size = new System.Drawing.Size(75, 23);
+            this.hideBtn.TabIndex = 1;
+            this.hideBtn.Text = "Hide";
+            this.hideBtn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.hideBtn);
+            this.Controls.Add(this.processListView);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView processListView;
+        private System.Windows.Forms.Button hideBtn;
     }
 }
 
