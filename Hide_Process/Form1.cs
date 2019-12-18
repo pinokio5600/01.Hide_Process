@@ -17,6 +17,9 @@ namespace Hide_Process{
 
         /* Win32API들 */
         [DllImport("user32.dll")]
+        public static extern IntPtr GetClassLong(IntPtr hwnd, int nIndex);
+
+        [DllImport("user32.dll")]
         public static extern int EnumWindows(EnumWindowCallback callback, int y);
 
         [DllImport("user32.dll")]
@@ -28,38 +31,38 @@ namespace Hide_Process{
         [DllImport("user32.dll")]
         public static extern long GetWindowLong(int hWnd, int nIndex);
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetClassLong(IntPtr hwnd, int nIndex);
-
         [DllImport("user32")]
         public static extern int ShowWindow(int hwnd, int nCmdShow);
 
         const int GCL_HICON = -14; //GetWindowLong을 호출할 때 쓸 인자
         const int GCL_HMODULE = -16;
         ImageList imgList;//ListView의 Image로 쓸 리스트
-
         ArrayList handleArray = null; //숨길 핸들러 저장
 
         public Form1(){
-            InitializeComponent();
-
-            imgList = new ImageList();
-            imgList.ImageSize = new Size(16, 16);
-            processListView.SmallImageList = imgList;
-            processListView.View = View.List;
+            InitializeComponent();            
 
             //EnumWindowCallback callback = new EnumWindowCallback(EnumWindowsProc);
             //EnumWindows(callback, 0);
-
-            this.hideBtn.Click += FuncHide;
         }
 
         private void Form1_Load(object sender, EventArgs e){
+            processListView.View = View.List;
+            imgList = new ImageList();
+            imgList.ImageSize = new Size(16, 16);
+            processListView.SmallImageList = imgList;
+
+            //processListView.HeaderStyle = ColumnHeaderStyle.Clickable;
+            processListView.CheckBoxes = true;
+
             handleArray = new ArrayList();
             loadProcessList();
+
+            this.btnHide.Click += FuncHide;
+            this.btnShow.Click += FuncShow;
         }
 
-        public bool EnumWindowsProc(int hWnd, int lParam){
+        /*public bool EnumWindowsProc(int hWnd, int lParam){
             //윈도우 핸들로 그 윈도우의 스타일을 얻어옴
             UInt32 style = (UInt32)GetWindowLong(hWnd, GCL_HMODULE);
             //해당 윈도우의 캡션이 존재하는지 확인
@@ -85,25 +88,59 @@ namespace Hide_Process{
                 }
             }
             return true;
-        }
+        }*/
 
         private void loadProcessList(){
             Process[] processVar = Process.GetProcesses();
 
             processListView.Items.Clear();
             handleArray.Clear();
+
             foreach (Process process in processVar){
                 if (!String.IsNullOrEmpty(process.MainWindowTitle)){
-                    IntPtr mhandle = process.MainWindowHandle;
-                    handleArray.Add(mhandle.ToInt32());
-                    processListView.Items.Add(process.MainWindowTitle, "123");
+                    IntPtr mainHandle = process.MainWindowHandle;
+
+                    processListView.SmallImageList = imgList;
+
+                    try{
+                        //HICON 아이콘 핸들을 얻어온다
+                        IntPtr hIcon = GetClassLong((IntPtr)mainHandle, GCL_HICON);
+                        //아이콘 핸들로 Icon 객체를 만든다
+                        Icon icon = Icon.FromHandle(hIcon);
+                        imgList.Images.Add(icon);
+                    }catch (Exception){
+                        //예외의 경우는 자기 자신의 윈도우인 경우이다.
+                        imgList.Images.Add(this.Icon);
+                    }
+                    
+                    handleArray.Add(mainHandle.ToInt32());
+                    processListView.Items.Add(process.MainWindowTitle, handleArray.Count-1);
                 }
             }
         }
 
-        public void FuncHide(object sender, EventArgs e){
-            //ShowWindow((int)processList[1], 0);
+        private void FuncHide(object sender, EventArgs e){
+            /*foreach(ListViewItem item in processListView.CheckedItems){
+                ShowWindow((int)handleArray[3], 0);
+            }*/
 
+            for (int i = 0; i < processListView.Items.Count; i++){
+                if (processListView.Items[i].Checked == true) {
+                    ShowWindow((int)handleArray[i], 0);
+                }
+            }
+        }
+
+        private void FuncShow(object sender, EventArgs e){
+            /*foreach (ListViewItem item in processListView.CheckedItems){
+                ShowWindow((int)handleArray[3], 5);
+            }*/
+
+            for (int i = 0; i < processListView.Items.Count; i++){
+                if (processListView.Items[i].Checked == true){
+                    ShowWindow((int)handleArray[i], 5);
+                }
+            }
         }
     }
 }

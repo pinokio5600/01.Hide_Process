@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.processListView = new System.Windows.Forms.ListView();
-            this.hideBtn = new System.Windows.Forms.Button();
+            this.btnHide = new System.Windows.Forms.Button();
+            this.btnShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // processListView
@@ -40,23 +41,32 @@
             this.processListView.Size = new System.Drawing.Size(370, 334);
             this.processListView.TabIndex = 0;
             this.processListView.UseCompatibleStateImageBehavior = false;
-    
             // 
-            // hideBtn
+            // btnHide
             // 
-            this.hideBtn.Location = new System.Drawing.Point(564, 47);
-            this.hideBtn.Name = "hideBtn";
-            this.hideBtn.Size = new System.Drawing.Size(75, 23);
-            this.hideBtn.TabIndex = 1;
-            this.hideBtn.Text = "Hide";
-            this.hideBtn.UseVisualStyleBackColor = true;
+            this.btnHide.Location = new System.Drawing.Point(564, 47);
+            this.btnHide.Name = "btnHide";
+            this.btnHide.Size = new System.Drawing.Size(75, 23);
+            this.btnHide.TabIndex = 1;
+            this.btnHide.Text = "Hide";
+            this.btnHide.UseVisualStyleBackColor = true;
+            // 
+            // btnShow
+            // 
+            this.btnShow.Location = new System.Drawing.Point(564, 101);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(75, 23);
+            this.btnShow.TabIndex = 2;
+            this.btnShow.Text = "Show";
+            this.btnShow.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.hideBtn);
+            this.Controls.Add(this.btnShow);
+            this.Controls.Add(this.btnHide);
             this.Controls.Add(this.processListView);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -68,7 +78,8 @@
         #endregion
 
         private System.Windows.Forms.ListView processListView;
-        private System.Windows.Forms.Button hideBtn;
+        private System.Windows.Forms.Button btnHide;
+        private System.Windows.Forms.Button btnShow;
     }
 }
 
