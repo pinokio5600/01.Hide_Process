@@ -19,18 +19,6 @@ namespace Hide_Process{
         [DllImport("user32.dll")]
         public static extern IntPtr GetClassLong(IntPtr hwnd, int nIndex);
 
-        [DllImport("user32.dll")]
-        public static extern int EnumWindows(EnumWindowCallback callback, int y);
-
-        [DllImport("user32.dll")]
-        public static extern int GetParent(int hWnd);
-
-        [DllImport("user32.dll")]
-        public static extern int GetWindowText(int hWnd, StringBuilder text, int count); //1:파라미터 2:반환값 3:
-
-        [DllImport("user32.dll")]
-        public static extern long GetWindowLong(int hWnd, int nIndex);
-
         [DllImport("user32")]
         public static extern int ShowWindow(int hwnd, int nCmdShow);
 
@@ -118,7 +106,7 @@ namespace Hide_Process{
             Keys key = keyData & ~(Keys.Shift | Keys.Control);
 
             switch(key){
-                case Keys.F:
+                case Keys.F2:
                     if((keyData & Keys.Control) != 0){
                         MessageBox.Show("Ctrl + F");
                         return true;

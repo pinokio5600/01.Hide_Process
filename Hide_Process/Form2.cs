@@ -40,6 +40,8 @@ namespace Hide_Process{
         private void FunSaveKey(object sender, EventArgs e){
             Properties.Settings.Default.hotKey = textBox1.Text;
             Properties.Settings.Default.Save();
+
+            Application.OpenForms["Form2"].Close();
         }
     }
 }
