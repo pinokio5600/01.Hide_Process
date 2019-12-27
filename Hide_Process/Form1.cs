@@ -40,10 +40,7 @@ namespace Hide_Process{
         ArrayList handleArray = null; //숨길 핸들러 저장
 
         public Form1(){
-            InitializeComponent();            
-
-            //EnumWindowCallback callback = new EnumWindowCallback(EnumWindowsProc);
-            //EnumWindows(callback, 0);
+            InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e){
@@ -60,35 +57,8 @@ namespace Hide_Process{
 
             this.btnHide.Click += FuncHide;
             this.btnShow.Click += FuncShow;
+            this.btnSetting.Click += SettingFormShow;
         }
-
-        /*public bool EnumWindowsProc(int hWnd, int lParam){
-            //윈도우 핸들로 그 윈도우의 스타일을 얻어옴
-            UInt32 style = (UInt32)GetWindowLong(hWnd, GCL_HMODULE);
-            //해당 윈도우의 캡션이 존재하는지 확인
-            if ((style & 0x10000000L) == 0x10000000L && (style & 0x00C00000L) == 0x00C00000L){
-                //부모가 바탕화면인지 확인
-                if (GetParent(hWnd) == 0){
-                    StringBuilder Buf = new StringBuilder(256);
-                    //응용프로그램의 이름을 얻어온다
-                    if (GetWindowText(hWnd, Buf, 256) > 0){
-                        try{
-                            //HICON 아이콘 핸들을 얻어온다
-                            IntPtr hIcon = GetClassLong((IntPtr)hWnd, GCL_HICON);
-                            //아이콘 핸들로 Icon 객체를 만든다
-                            Icon icon = Icon.FromHandle(hIcon);
-                            imgList.Images.Add(icon);
-                        }catch (Exception){
-                            //예외의 경우는 자기 자신의 윈도우인 경우이다.
-                            imgList.Images.Add(this.Icon);
-                        }
-                        processListView.Items.Add(new ListViewItem(Buf.ToString(), processListView.Items.Count));
-                 
-                    }
-                }
-            }
-            return true;
-        }*/
 
         private void loadProcessList(){
             Process[] processVar = Process.GetProcesses();
@@ -141,6 +111,31 @@ namespace Hide_Process{
                     ShowWindow((int)handleArray[i], 5);
                 }
             }
+        }
+
+        //오버라이드
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
+            Keys key = keyData & ~(Keys.Shift | Keys.Control);
+
+            switch(key){
+                case Keys.F:
+                    if((keyData & Keys.Control) != 0){
+                        MessageBox.Show("Ctrl + F");
+                        return true;
+                    }
+                    break;
+                case Keys.F5:
+                    MessageBox.Show("F5");
+                    return true;
+                    break;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void SettingFormShow(object sender, EventArgs e){
+            Form2 popForm = new Form2();
+            popForm.ShowDialog();
         }
     }
 }

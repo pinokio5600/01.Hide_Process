@@ -31,6 +31,7 @@
             this.processListView = new System.Windows.Forms.ListView();
             this.btnHide = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
+            this.btnSetting = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // processListView
@@ -60,11 +61,21 @@
             this.btnShow.Text = "Show";
             this.btnShow.UseVisualStyleBackColor = true;
             // 
+            // btnSetting
+            // 
+            this.btnSetting.Location = new System.Drawing.Point(564, 358);
+            this.btnSetting.Name = "btnSetting";
+            this.btnSetting.Size = new System.Drawing.Size(75, 23);
+            this.btnSetting.TabIndex = 3;
+            this.btnSetting.Text = "설정";
+            this.btnSetting.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnSetting);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.btnHide);
             this.Controls.Add(this.processListView);
@@ -80,6 +91,7 @@
         private System.Windows.Forms.ListView processListView;
         private System.Windows.Forms.Button btnHide;
         private System.Windows.Forms.Button btnShow;
+        private System.Windows.Forms.Button btnSetting;
     }
 }
 
